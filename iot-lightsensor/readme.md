@@ -1,4 +1,4 @@
-# Project Name
+# IoT Light Sensor Demo
 Simple IoT server with an Arduino light sensor, other tests included.
 
 ## Installation
