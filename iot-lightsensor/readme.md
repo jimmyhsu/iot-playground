@@ -5,7 +5,7 @@ Simple IoT server with an Arduino light sensor, other tests included.
 ### Tested Hardware:
 Arduino Grove - Mega 2560
 1 LED Light - Grove
-1 Light Sensor - Grove
+1 Light Sensor - Grove 
 
 ### Software:
 Python - https://www.python.org/downloads/
