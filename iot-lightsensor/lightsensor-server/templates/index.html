@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>{{ author }}'s app</title>
+    </head>
+
+    <body>
+        <h2 id="sensor-value">Light Sensor Reading: {{ value }}</h2>
+        <h2 id="light-status">LED Status: {{ light_value }}</h2>
+
+        <input type="submit" name="submit" value="Turn On" onclick="turnOn()">
+        <input type="submit" name="submit" value="Turn Off" onclick="turnOff()">
+
+    </body>
+    <script>
+        var xhr = new XMLHttpRequest();
+        setInterval(function() {
+            xhr.open('GET', '/refresh');
+            xhr.onload = function() {
+                if (xhr.status === 200) {
+                    console.log('Response: ' + xhr.responseText);
+                    var sensorValue = document.getElementById('sensor-value');
+                    sensorValue.innerHTML = "Light Sensor Reading " + xhr.responseText;
+                }
+                else {
+                    console.log('Request failed.  Returned status of ' + xhr.status);
+                }
+            };
+            xhr.send();
+        }, 5000);
+
+        function turnOff() {
+            xhr.open('GET', '/turnoff');
+            xhr.onload = function() {
+                if (xhr.status === 200) {
+                    console.log('Response: ' + xhr.responseText);
+                    var lightStatus = document.getElementById('light-status');
+                    lightStatus.innerHTML = "LED Status: " + xhr.responseText;
+                }
+                else {
+                    console.log('Request failed.  Returned status of ' + xhr.status);
+                }
+            };
+            xhr.send();
+        }
+
+        function turnOn() {
+            xhr.open('GET', '/turnon');
+            xhr.onload = function() {
+                if (xhr.status === 200) {
+                    console.log('Response: ' + xhr.responseText);
+                    var lightStatus = document.getElementById('light-status');
+                    lightStatus.innerHTML = "LED Status: " + xhr.responseText;
+                }
+                else {
+                    console.log('Request failed.  Returned status of ' + xhr.status);
+                }
+            };
+            xhr.send();
+        }
+    </script>
+</html>
