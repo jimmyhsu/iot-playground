@@ -1,6 +1,6 @@
 from flask import Flask, render_template, request, redirect, url_for, jsonify
 from pyduino import *
-import time
+from time import sleep
 
 app = Flask(__name__)
 
@@ -8,7 +8,7 @@ app = Flask(__name__)
 # if your arduino was running on a serial port other than '/dev/ttyACM0/'
 a = Arduino(serial_port='/dev/tty.usbmodem1421')
 # a = Arduino()
-time.sleep(3)
+sleep(3)
 
 # declare the pins we're using
 LED_PIN = 2
@@ -51,6 +51,7 @@ def hello_world():
             pass
 
     # read in analog value from photoresistor
+    sleep(1)  # ugh, flask crashes cause it can't read fast enough
     readval = a.analog_read(ANALOG_PIN)
 
     # the default page to display will be our template with our template variables
@@ -75,6 +76,7 @@ def turn_off():
 @app.route('/refresh', methods=['GET'])
 def refresh_data():
     # read in analog value from photoresistor
+    sleep(1)  # ugh, flask crashes cause it can't read fast enough
     readval = a.analog_read(ANALOG_PIN)
     return jsonify(100*(readval/1023.))
 
